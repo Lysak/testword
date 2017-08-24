@@ -6,7 +6,7 @@
     <div class="thumbnail">
         <h3><?php echo $value['title'];?></h3>
         <img src="/template/img/news/<?php echo $value['id'];?>.jpg">
-        <p><?php echo $value['preview'];?></p>
+        <p><?php echo $value['short_content'];?></p>
 		<p align="center"><strong>Дата публікації: <?php echo $value['date'];?></strong></p>
         <p align="center"><a href="/blog/<?php echo $value['id'];?>" class="btn btn-primary" role="button">Читати</a></p>
   </div>

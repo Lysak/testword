@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             <label for="pwd">Короткий опис:</label>
-            <textarea class="form-control" name="preview" rows="5" id="comment" required></textarea>
+            <textarea class="form-control" name="short_content" rows="5" id="comment" required></textarea>
         </div>
         <div class="form-group">
             <label for="comment">Детально:</label>

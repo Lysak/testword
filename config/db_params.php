@@ -1,7 +1,7 @@
 <?php
     return array(
       'host' => 'localhost',
-        'dbname' => 'news',
+        'dbname' => 'wp_news',
         'user' => 'root',
-        'password' => ''
+        'password' => '1'
     );

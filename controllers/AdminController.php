@@ -16,7 +16,7 @@ class AdminController {
             $password = htmlspecialchars($_POST['password'], ENT_QUOTES);
             $secretPassword = hash("sha256", $password);
 
-            $userId = User::checkUserData($email, $secretPassword);
+            $userId = User::checkUserData($email, $password);
             if ($userId == false) {
                 $errors[] = 'Неправильні дані для входу';
             } else {
@@ -40,7 +40,7 @@ class AdminController {
         if (isset($_POST['submit'])) {
 
             $options['title'] = $_POST['title'];
-            $options['preview'] = $_POST['preview'];
+            $options['short_content'] = $_POST['short_content'];
             $options['content'] = $_POST['content'];
 
                 $id = Blog::createProduct($options);

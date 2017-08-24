@@ -14,11 +14,12 @@ class AdminController {
         {
             $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
             $password = htmlspecialchars($_POST['password'], ENT_QUOTES);
-            $secretPassword = hash("sha256", $password);
+//            $secretPassword = hash("sha256", $password);
 
             $userId = User::checkUserData($email, $password);
             if ($userId == false) {
                 $errors[] = 'Неправильні дані для входу';
+//                print_r($errors);
             } else {
                     User::auth($userId);
                     }

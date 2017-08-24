@@ -1,30 +1,54 @@
 <?php
 class Blog
 {
-    public static function getNewsItemByID($id)
+    public static function getNewsItemById($id)
     {
         $id = intval($id);
-        $newsItem = array();
-        if ($id) {
-            $db = Db::getConnection();
-            
-            $result = $db->query('SELECT id, title, date, content FROM articles WHERE id=' . $id);
-            $i = 0;
-            while($row = $result->fetch()) {
-                $newsItem[$i]['id'] = $row['id'];
-                $newsItem[$i]['title'] = $row['title'];
-                $newsItem[$i]['date'] = $row['date'];
-                $newsItem[$i]['content'] = $row['content'];
-                $i++;
-            }
-        }
-        return $newsItem;
-    }
 
-    public static function getNewsList() {
+        if ($id) {
+
+            $db = Db::getConnection();
+
+            $result = $db->query('SELECT * from articles WHERE id='.$id);
+
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+
+            $newsItem = $result->fetch();
+
+            return $newsItem;
+        }
+    }
+//    {
+//        $id = intval($id);
+//        $newsItem = array();
+//        if ($id) {
+//            $db = Db::getConnection();
+//
+//            $result = $db->query('SELECT id, title, date, content FROM articles WHERE id=' . $id);
+//            $i = 0;
+//            while($row = $result->fetch()) {
+//                $newsItem[$i]['id'] = $row['id'];
+//                $newsItem[$i]['title'] = $row['title'];
+//                $newsItem[$i]['date'] = $row['date'];
+//                $newsItem[$i]['content'] = $row['content'];
+//                $i++;
+//            }
+//        }
+//        $newsItem = $result->fetch();
+//        return $newsItem;
+//    }
+
+    public static function getNewsList()
+    {
         $db = Db::getConnection();
+
         $newsList = array();
-        $result = $db->query('SELECT id, title, date, short_content FROM articles ORDER BY id ASC LIMIT 10');
+
+        $result = $db->query('SELECT id, title, date, short_content, author_name, preview '
+            . 'FROM articles '
+            . 'ORDER BY date DESC '
+            . 'LIMIT 6');
+
         $i = 0;
         while($row = $result->fetch()) {
             $newsList[$i]['id'] = $row['id'];
@@ -33,8 +57,24 @@ class Blog
             $newsList[$i]['short_content'] = $row['short_content'];
             $i++;
         }
+
         return $newsList;
     }
+
+//    public static function getNewsList() {
+//        $db = Db::getConnection();
+//        $newsList = array();
+//        $result = $db->query('SELECT id, title, date, short_content FROM articles ORDER BY date DESC LIMIT 10');
+//        $i = 0;
+//        while($row = $result->fetch()) {
+//            $newsList[$i]['id'] = $row['id'];
+//            $newsList[$i]['title'] = $row['title'];
+//            $newsList[$i]['date'] = $row['date'];
+//            $newsList[$i]['short_content'] = $row['short_content'];
+//            $i++;
+//        }
+//        return $newsList;
+//    }
 
 
     public static function createProduct($options)

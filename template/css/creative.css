@@ -118,3 +118,32 @@ body {
     }
 }
 
+/* lysak */
+
+.jumbotron {
+    margin-bottom: 0;
+}
+
+.six{
+    margin-top: 20px;
+}
+
+.six div img {
+    max-width: 100%;
+    max-height: 250px;
+    align-self:center;
+}
+
+.center {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-inner {
+    height: 394px;
+}
+
+.blog img {
+    height: 400px;
+}

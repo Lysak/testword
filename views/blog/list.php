@@ -4,7 +4,7 @@
     <?php /** @var $newsList */
 foreach ($newsList as $newsItem):?>
     <div class="col-sm-6 col-md-12">
-        <div class="thumbnail">
+        <div class="thumbnail blog">
             <h3><?php echo $newsItem['title'];?></h3>
             <img src="/template/img/news/<?php echo $newsItem['id'];?>.jpg">
             <p><?php echo $newsItem['short_content'];?></p>

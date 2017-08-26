@@ -88,6 +88,8 @@ class Blog
         $result->bindParam(':title', $options['title'], PDO::PARAM_STR);
         $result->bindParam(':short_content', $options['short_content'], PDO::PARAM_STR);
         $result->bindParam(':content', $options['content'], PDO::PARAM_STR);
+//        $id = $options['id'].jpg;
+//        $result->bindParam(':preview', $id, PDO::PARAM_STR);
 
         if ($result->execute()) {
             return $db->lastInsertId();

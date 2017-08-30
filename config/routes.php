@@ -10,5 +10,7 @@
 
         'contacts' => 'site/contact',
 
+        'index' => 'site/index', // test
+
         '' => 'site/index',
  );

@@ -7,9 +7,8 @@ class BlogController {
     public function actionIndex()
     {
     	$newsList = array();
-    	$newsList = Blog::getNewsList();
+    	$newsList = Blog::getNewsList(1, 3); // ajax placeholder
         require_once(ROOT . '/views/blog/list.php');
-//        require_once(ROOT . '/views/index.php');
         return true;
     }
 

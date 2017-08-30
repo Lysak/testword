@@ -147,3 +147,13 @@ body {
 .blog img {
     height: 400px;
 }
+
+.thumbnail h4 {
+    text-align: center;
+}
+
+.paginate {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

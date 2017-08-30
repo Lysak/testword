@@ -9,19 +9,19 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img src="template/img/news/1.jpg" alt="Chania">
+          <img src="/template/img/news/1.jpg" alt="IMG1">
         </div>
 
         <div class="item">
-          <img src="template/img/news/2.jpg" alt="Chania">
+          <img src="/template/img/news/2.jpg" alt="IMG2">
         </div>
 
         <div class="item">
-          <img src="template/img/news/3.jpg" alt="Flower">
+          <img src="/template/img/news/3.jpg" alt="IMG3">
         </div>
 
         <div class="item">
-          <img src="template/img/news/4.jpg" alt="Flower">
+          <img src="/template/img/news/4.jpg" alt="IMG4">
         </div>
       </div>
       <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -40,18 +40,18 @@
       <p class="lead">Найостанніші та найактуальніші новини світу науки, електроніки та IT-індустрії - останні відкриття, новини про нові гаджети та винаходи.</p>
   </div>
     <div>
-    <?php foreach ($newsList as $newsItem):?>
+        <?php /** @var $newsList */
+    foreach ($newsList as $newsItem):?>
       <div class="col-lg-6 six">
         <div class="thumbnail">
           <h4><?php echo $newsItem['title'];?></h4>
           <div class="center"><img src="/template/img/news/<?php echo $newsItem['id'];?>.jpg"></div>
-          <p><?php echo $newsItem['short_content'];?></p>
+          <p><?php echo mb_strimwidth($newsItem['short_content'], 0, 40, "...");?></p>
           <p align="center"><strong>Дата публікації: <?php echo $newsItem['date'];?></strong></p>
           <p align="center"><a href="/blog/<?php echo $newsItem['id'];?>" class="btn btn-primary" role="button">Читати</a></p>
         </div>
       </div>
     <?php endforeach; ?>
   </div>
-
-
+  <div class="paginate"><?php echo Blog::pagination($page, $limit); ?></div>
 <?php include ROOT . '/views/layouts/footer.php'; ?>

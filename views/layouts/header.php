@@ -7,7 +7,7 @@
 
     <link rel="shortcut icon" href="/template/img/favicon.ico" type="image/x-icon">
 
-    <title>YN</title>
+    <title></title>
    <!--  Bootstrap core CSS -->
 <link href="/template/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
@@ -30,14 +30,14 @@
               <div class="container-fluid">
             
                 <ul class="nav navbar-nav" >
-                  <li><a href="/">Головна</a></li>
+                  <li><a href="/">Head</a></li>
                   <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">Новини<b class="caret"></b></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">News<b class="caret"></b></a>
                       <ul class="dropdown-menu">
-                        <li><a href="/blog">Блог</a></li>
+                        <li><a href="/blog">Article</a></li>
                       </ul>
                   </li>
-                  <li><a href="/contacts">Контакти</a></li>
+                  <li><a href="/login">Login</a></li>
                 </ul>
               </div>
             

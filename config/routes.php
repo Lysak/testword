@@ -12,5 +12,10 @@
 
         'index' => 'site/index', // test
 
+        'login' => 'auth/login',
+        'logout' => 'auth/logout',
+        'intropage' => 'auth/intropage',
+        'register' => 'auth/register',
+
         '' => 'site/index',
  );

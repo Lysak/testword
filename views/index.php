@@ -36,8 +36,8 @@
 </header>
 
   <div class="jumbotron">
-      <h1>Новини IT і науки</h1>
-      <p class="lead">Найостанніші та найактуальніші новини світу науки, електроніки та IT-індустрії - останні відкриття, новини про нові гаджети та винаходи.</p>
+      <h1>Lorem ipsum dolor.</h1>
+      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa consequatur voluptate delectus eveniet quo. Tempore!</p>
   </div>
     <div>
         <?php /** @var $newsList */

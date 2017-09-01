@@ -157,3 +157,21 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.disabled {
+    -webkit-user-select: none;
+
+    -moz-user-select: none;
+
+    -ms-user-select: none;
+}
+
+.site {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.jumbotron p, h1 {
+    text-align: center;
+}

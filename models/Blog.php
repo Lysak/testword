@@ -46,49 +46,36 @@ class Blog
         return $newsList;
     }
 
-//    public static function getAllArticles($start, $limit) {
-//        $db = DB::getConnection();
-//        $result = $db->query("SELECT * FROM `articles` ORDER BY date DESC LIMIT ".$start.", ".$limit);
-//        $result->setFetchMode(PDO::FETCH_ASSOC);
-////		closeDB($db);
-//        return Blog::setResultToArray($result);
-//    }
-//
-//    static function setResultToArray($result) {
-//        $array = array();
-//        while ($row = $result->fetch()) {
-//            $array[] = $row;
-//        }
-//        return $array;
-//    }
+    public static function getLikes()
+    {
+        $db = DB::getConnection();
+        if (isset($_POST['liked'])) {
+            $postid = $_POST['postid'];
+            $result = $db->query("SELECT * FROM articles WHERE id=$postid");
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $newsItem = $result->fetch();
+            $n = $newsItem['likes'];
+    
+            $db->query("UPDATE articles SET likes=$n+1 WHERE id=$postid");
+            $db->query("INSERT INTO likes(userid, postid) VALUE(1, $postid)");
+            exit();
+        }
+        if (isset($_POST['unliked'])) {
+            $postid = $_POST['postid'];
+            $result = mysql_query("SELECT * FROM articles WHERE id=$postid");
+            $row = mysql_fetch_array($result);
+            $n = $row['likes'];
+            //delete from the likes before updation posts
+            mysql_query("DELETE FROM likes WHERE postid=$postid AND userid=1");
+            mysql_query("UPDATE articles SET likes=$n-1 WHERE id=$postid");
+            exit();
+        }
+    }
 
-//    public static function getNewsList()
-//    {
-//        $db = Db::getConnection();
-//
-//        $newsList = array();
-//
-//        $result = $db->query('SELECT id, title, date, short_content '
-//            . 'FROM articles '
-//            . 'ORDER BY date DESC '
-//            . 'LIMIT 3');
-////        $result = $db->query("SELECT * FROM `articles` ORDER BY `date` DESC LIMIT ".$start.", ".$limit);
-//
-//        $i = 0;
-//        while($row = $result->fetch()) {
-//            $newsList[$i]['id'] = $row['id'];
-//            $newsList[$i]['title'] = $row['title'];
-//            $newsList[$i]['date'] = $row['date'];
-//            $newsList[$i]['short_content'] = $row['short_content'];
-//            $i++;
-//        }
-//
-//        return $newsList;
-//    }
 
     public static function createProduct($options)
     {
-        $db = Db::getConnection();
+        $db = DB::getConnection();
         $sql = 'INSERT INTO articles '
                 . '(title, short_content, content)'
                 . 'VALUES '
@@ -106,10 +93,6 @@ class Blog
     }
 
     // *************************** //
-
-
-
-
 
 
 
@@ -191,7 +174,46 @@ class Blog
 //            }
         }
 
+        ///////////////////////////// хз
+//    public static function getAllArticles($start, $limit) {
+//        $db = DB::getConnection();
+//        $result = $db->query("SELECT * FROM `articles` ORDER BY date DESC LIMIT ".$start.", ".$limit);
+//        $result->setFetchMode(PDO::FETCH_ASSOC);
+////		closeDB($db);
+//        return Blog::setResultToArray($result);
+//    }
+//
+//    static function setResultToArray($result) {
+//        $array = array();
+//        while ($row = $result->fetch()) {
+//            $array[] = $row;
+//        }
+//        return $array;
+//    }
 
+//    public static function getNewsList()
+//    {
+//        $db = Db::getConnection();
+//
+//        $newsList = array();
+//
+//        $result = $db->query('SELECT id, title, date, short_content '
+//            . 'FROM articles '
+//            . 'ORDER BY date DESC '
+//            . 'LIMIT 3');
+////        $result = $db->query("SELECT * FROM `articles` ORDER BY `date` DESC LIMIT ".$start.", ".$limit);
+//
+//        $i = 0;
+//        while($row = $result->fetch()) {
+//            $newsList[$i]['id'] = $row['id'];
+//            $newsList[$i]['title'] = $row['title'];
+//            $newsList[$i]['date'] = $row['date'];
+//            $newsList[$i]['short_content'] = $row['short_content'];
+//            $i++;
+//        }
+//
+//        return $newsList;
+//    }
 
         return $pagination;
     }

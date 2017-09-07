@@ -175,3 +175,17 @@ body {
 .jumbotron p, h1 {
     text-align: center;
 }
+
+/* .content {
+    width: 50%;
+    margin: 100px auto;
+    border: 1ps solid #cbcbcb;
+} */
+
+.post {
+    /* width: 80%; */
+    /* margin: 10px auto; */
+    /* border: 1px solid #cbcbcb; */
+    /* padding: 10px; */
+    text-align: center;
+}

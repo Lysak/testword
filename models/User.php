@@ -4,7 +4,7 @@ class User
 {
     public static function checkUserData($email, $password)
     {
-        $db = Db::getConnection();
+        $db = DB::getConnection();
         $sql = 'SELECT id, email, password FROM user WHERE email = :email AND password = :password';
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_INT);

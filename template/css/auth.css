@@ -136,3 +136,9 @@ footer {
     text-align: center;
     margin-top: 20px;
 }
+
+.site {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

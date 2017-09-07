@@ -65,7 +65,7 @@ class AuthController
         require_once(ROOT . '/views/auth/register.php');
         require_once(ROOT . '/views/auth/connection.php');
 
-        if(isset($_POST["register"])){
+        if(isset($_POST["register"])) {
 
 
             if(!empty($_POST['full_name']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password'])) {
@@ -73,8 +73,6 @@ class AuthController
                 $email=$_POST['email'];
                 $username=$_POST['username'];
                 $password=$_POST['password'];
-
-
 
                 $query=mysql_query("SELECT * FROM usertbl WHERE username='".$username."'");
                 $numrows=mysql_num_rows($query);

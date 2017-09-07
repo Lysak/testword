@@ -19,4 +19,12 @@ class BlogController {
         require_once(ROOT . '/views/blog/view.php');
         return true;
     }
+
+    public function actionLikes()
+    {
+    	$newsItem = array();
+    	$newsItem = Blog::getLikes();
+        require_once(ROOT . '/views/blog/list.php');
+        return true;
+    }
 } 

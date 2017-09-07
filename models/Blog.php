@@ -16,8 +16,6 @@ class Blog
             $newsItem = $result->fetch();
 
             return $newsItem;
-
-
         }
     }
 

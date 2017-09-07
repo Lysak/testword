@@ -3,40 +3,41 @@
 include_once ROOT. '/models/Blog.php';
 
 class SiteController {
-	
+
+    protected $page = false;
+    protected $limit = 4;
+    protected $prev;
+    protected $next;
+    protected $count_pages;
+    
     public function actionIndex()
     {
         $newsList = array();
-        require_once ROOT."/models/Blog.php";   
+        require_once ROOT."/models/Blog.php";
         // текущая страница
-        $page = false;
+        
 
-        if ($page < 1 or $page == "") {
-            $page = 1;
+        if ($this->page < 1 or $this->page == "") {
+            $this->page = 1;
         }
 
         if (array_key_exists('page', $_GET))
         {
-            $page = $_GET['page'];
+            $this->page = $_GET['page'];
         }
 
         // количество строк-статей на стр.
-        $limit = 4;
-        // начало выборки из БД
-        $start = Blog::getStart($page, $limit);
-        $newsList = Blog::getNewsList($start, $limit);
         
-        //PAGINATION
-        $count_articles = Blog::countArticles();
-        // общее количество стр.
-        $count_pages = ceil($count_articles / $limit);
-        if ($page > $count_pages) $page = $count_pages;
-        $prev = $page - 1;
-        $next = $page + 1;
-        if ($prev < 1) $prev = 1;
-        if ($next > $count_pages) $next = $count_pages;
-        //PAGINATION END
+        // начало выборки из БД
+        $start = Blog::getStart($this->page, $this->limit);
+        $newsList = Blog::getNewsList($start, $this->limit);
 
+        $this->paginate($this->limit);
+        $prev = $this->prev;
+        $next = $this->next;
+        $count_pages = $this->count_pages;
+        $page = $this->page;
+        
         require_once(ROOT . '/views/index.php');
         return true;
     }
@@ -46,19 +47,17 @@ class SiteController {
     //     require_once(ROOT . '/views/contacts.php');
     //     return true;
     // }
-
-    public function pagination($page, $limit) {
-        // общее кол-во строк в БД
+    public function paginate($limit) 
+    {
+        //PAGINATION
         $count_articles = Blog::countArticles();
         // общее количество стр.
-        $count_pages = ceil($count_articles / $limit);
-        if ($page > $count_pages) $page = $count_pages;
-        $prev = $page - 1;
-        $next = $page + 1;
-        if ($prev < 1) $prev = 1;
-        if ($next > $count_pages) $next = $count_pages;
-        
-        require_once(ROOT . '/views/index.php');
-        return true;
+        $this->count_pages = ceil($count_articles / $limit);
+        if ($this->page > $this->count_pages) $this->page = $this->count_pages;
+        $this->prev = $this->page - 1;
+        $this->next = $this->page + 1;
+        if ($this->prev < 1) $prev = 1;
+        if ($this->next > $this->count_pages) $this->next = $this->count_pages;
+        //PAGINATION END
     }
 }

@@ -24,6 +24,12 @@ class BlogController {
     {
         $newsItem = array();
         $newsItem = Blog::getLikes();
+
+
+        // determine if user has already like this post
+        $result = mysql_query("SELECT * FROM likes WHERE userid=1 AND postid=".$newsItem['id']."");
+
+
         require_once(ROOT . '/views/blog/list.php');
         return true;
     }

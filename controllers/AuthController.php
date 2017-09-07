@@ -63,7 +63,6 @@ class AuthController
     public function actionRegister()
     {
         require_once(ROOT . '/views/auth/register.php');
-        require_once(ROOT . '/views/auth/connection.php');
 
         if(isset($_POST["register"])) {
 
@@ -73,9 +72,11 @@ class AuthController
                 $email=$_POST['email'];
                 $username=$_POST['username'];
                 $password=$_POST['password'];
-
-                $query=mysql_query("SELECT * FROM usertbl WHERE username='".$username."'");
-                $numrows=mysql_num_rows($query);
+                $db = DB::getConnection();
+                // $query=mysql_query("SELECT * FROM usertbl WHERE username='".$username."'");
+                $query=$db->query("SELECT * FROM usertbl WHERE username='".$username."'");
+                // $numrows=mysql_num_rows($query);
+                $numrows=$query->fetchColumn();
 
                 if($numrows==0)
                 {
@@ -83,7 +84,7 @@ class AuthController
                     (full_name, email, username,password) 
                     VALUES('$full_name','$email', '$username', '$password')";
 
-                    $result=mysql_query($sql);
+                    $result=$db->query($sql);
 
 
                     if($result){

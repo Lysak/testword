@@ -7,7 +7,6 @@
  */
 
 include_once ROOT. '/models/Auth.php';
-//include_once ROOT. '/models/User.php';
 
 class AuthController
 {
@@ -72,19 +71,12 @@ class AuthController
                 $email=$_POST['email'];
                 $username=$_POST['username'];
                 $password=$_POST['password'];
-                $db = DB::getConnection();
-                // $query=mysql_query("SELECT * FROM usertbl WHERE username='".$username."'");
-                $query=$db->query("SELECT * FROM usertbl WHERE username='".$username."'");
-                // $numrows=mysql_num_rows($query);
-                $numrows=$query->fetchColumn();
+
+                $numrows = Auth::checkTheUserName($username);
 
                 if($numrows==0)
                 {
-                    $sql="INSERT INTO usertbl
-                    (full_name, email, username,password) 
-                    VALUES('$full_name','$email', '$username', '$password')";
-
-                    $result=$db->query($sql);
+                    $result = Auth::addUserDataInDB($full_name, $email, $username, $password);
 
 
                     if($result){
@@ -102,7 +94,6 @@ class AuthController
             }
         }
         if (!empty($message)) {echo "<p class=\"error\">" . "MESSAGE: ". $message . "</p>";}
-
 
         return true;
     }

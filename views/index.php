@@ -49,5 +49,5 @@
       </div>
     <?php endforeach; ?>
   </div>
-  <div class="paginate"><?php echo Blog::pagination($page, $limit); ?></div>
+  <div class="paginate"><?php echo SiteController::pagination($page, $limit); ?></div>
 <?php include ROOT . '/views/layouts/footer.php'; ?>

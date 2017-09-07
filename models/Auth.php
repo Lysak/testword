@@ -25,16 +25,24 @@ class Auth
         return true;
     }
 
-    public static function checkRegistration($full_name, $email, $username, $password)
+    
+    public static function checkTheUserName($username)
     {
         $db = DB::getConnection();
-
         $query=$db->query("SELECT * FROM usertbl WHERE username='".$username."'");
+        $numrows=$query->fetchColumn();
 
+        return $numrows;
+    }
+
+    public static function addUserDataInDB($full_name, $email, $username, $password)
+    {
+        $db = DB::getConnection();
         $sql="INSERT INTO usertbl
-                (full_name, email, username,password) 
-                VALUES('$full_name','$email', '$username', '$password')";
+        (full_name, email, username,password) 
+        VALUES('$full_name','$email', '$username', '$password')";
 
         $result=$db->query($sql);
+        return $result;
     }
 }

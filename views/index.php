@@ -36,7 +36,7 @@
       <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa consequatur voluptate delectus eveniet quo. Tempore!</p>
   </div>
     <div>
-        <?php /** @var $newsList */
+    <?php /** @var $newsList */
     foreach ($newsList as $newsItem):?>
       <div class="col-lg-6 six">
         <div class="thumbnail">
@@ -49,5 +49,43 @@
       </div>
     <?php endforeach; ?>
   </div>
-  <div class="paginate"><?php echo SiteController::pagination($page, $limit); ?></div>
+  <div class="paginate">
+    <ul class="pagination justify-content-center">
+    <?php if ($count_pages > 1) { ?>
+        <?php if ($page == 1) { ?>
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="">Prev</a>
+            </li>
+        <?php } else { ?>
+            <?php if ($prev == 1) { ?>
+                <li class="page-item">
+                    <a class="page-link" href="" tabindex="">Prev</a>
+                </li>
+            <?php } else { ?>
+                <li class="page-item">
+                    <a class="page-link" href="/index/?page=<?php echo $prev; ?>" tabindex="">Prev</a>
+                </li>
+            <?php } ?>
+        <?php } ?>
+        <?php for ($i = 1; $i <= $count_pages; $i++) { ?>
+            <?php if ($i == 1) { ?>
+                <li class="page-item"><a class="page-link" href="/"><?php echo $i; ?></a></li>
+            <?php } else { ?>
+                <li class="page-item"><a class="page-link" href="/index/?page=<?php echo $i; ?>"><?php echo $i ?></a></li>
+            <?php } ?>
+        <?php } ?>
+        <?php if ($page == $count_pages) { ?>
+            <li class="page-item disabled">
+                <a class="page-link">Next</a>
+            </li>
+        <?php } ?>
+        <?php if ($page != $count_pages) { ?>
+            <li class="page-item">
+              <a class="page-link" href="/index/?page=<?php echo $next; ?>">Next</a>
+            </li>
+        <?php } ?>
+    <?php } ?>
+    </ul>
+</div> 
+
 <?php include ROOT . '/views/layouts/footer.php'; ?>

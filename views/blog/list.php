@@ -1,29 +1,28 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
 <?php 
 	// connect to the DB
-	mysql_connect('localhost', 'root', '1');
-	mysql_select_db('wp_news');
+    $db = DB::getConnection();
 
-	if (isset($_POST['liked'])) {
-		$postid = $_POST['postid'];
-		$result = mysql_query("SELECT * FROM articles WHERE id=$postid");
-		$row = mysql_fetch_array($result);
-		$n = $row['likes'];
+    if (isset($_POST['liked'])) {
+        $postid = $_POST['postid'];
+        $result = $db->query("SELECT * FROM articles WHERE id=$postid");
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $n = $row['likes'];
 
-		mysql_query("UPDATE articles SET likes=$n+1 WHERE id=$postid");
-		mysql_query("INSERT INTO likes(userid, postid) VALUE(1, $postid)");
-		exit();
-	}
-	if (isset($_POST['unliked'])) {
-		$postid = $_POST['postid'];
-		$result = mysql_query("SELECT * FROM articles WHERE id=$postid");
-		$row = mysql_fetch_array($result);
-		$n = $row['likes'];
-		//delete from the likes before updation posts
-		mysql_query("DELETE FROM likes WHERE postid=$postid AND userid=1");
-		mysql_query("UPDATE articles SET likes=$n-1 WHERE id=$postid");
-		exit();
-	}
+        $db->query("UPDATE articles SET likes=$n+1 WHERE id=$postid");
+        $db->query("INSERT INTO likes(userid, postid) VALUE(1, $postid)");
+        exit();
+    }
+    if (isset($_POST['unliked'])) {
+        $postid = $_POST['postid'];
+        $result = $db->query("SELECT * FROM articles WHERE id=$postid");
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $n = $row['likes'];
+        //delete from the likes before updation posts
+        $db->query("DELETE FROM likes WHERE postid=$postid AND userid=1");
+        $db->query("UPDATE articles SET likes=$n-1 WHERE id=$postid");
+        exit();
+    }
  ?>
 
 <div class="row">
@@ -36,10 +35,13 @@ foreach ($newsList as $newsItem):?>
             <p><?php echo $newsItem['short_content'];?></p>
             <div class="content">
                 <div class="post">
-                    <?php 
+                    <?php
                     // determine if user has already like this post
-                    $result = mysql_query("SELECT * FROM likes WHERE userid=1 AND postid=".$newsItem['id']."");
-                    if (mysql_num_rows($result) == 1) { ?>
+                    $result = $db->query("SELECT * FROM likes WHERE userid=1 AND postid=".$newsItem['id']."");
+                    $result->execute();
+                    // if (mysql_num_rows($result) == 1) { ?/>
+                    print_r($newsItem['likes']);
+                    if ($result->rowCount() == 1) { ?>
                         <!-- user already likes post -->
                         <span><a href="" class="unlike" id="<?php echo $newsItem['id']; ?>">unlike</a></span>
                     <?php } else { ?>
@@ -73,7 +75,7 @@ foreach ($newsList as $newsItem):?>
 			var postid = $(this).attr('id');
 			// alert('You clicked on ' + postid);
 			$.ajax({
-				url: 'index.php',
+				url: 'blog',
 				type: 'post',
 				async: false,
 				data: {
@@ -90,7 +92,7 @@ foreach ($newsList as $newsItem):?>
 			var postid = $(this).attr('id');
 			// alert('You clicked on ' + postid);
 			$.ajax({
-				url: 'index.php',
+				url: 'blog',
 				type: 'post',
 				async: false,
 				data: {

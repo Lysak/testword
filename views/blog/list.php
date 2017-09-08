@@ -1,28 +1,28 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
 <?php 
 	// connect to the DB
-    $db = DB::getConnection();
-
-    if (isset($_POST['liked'])) {
-        $postid = $_POST['postid'];
-        $result = $db->query("SELECT * FROM articles WHERE id=$postid");
-        $row = $result->fetch(PDO::FETCH_ASSOC);
-        $n = $row['likes'];
-
-        $db->query("UPDATE articles SET likes=$n+1 WHERE id=$postid");
-        $db->query("INSERT INTO likes(userid, postid) VALUE(1, $postid)");
-        exit();
-    }
-    if (isset($_POST['unliked'])) {
-        $postid = $_POST['postid'];
-        $result = $db->query("SELECT * FROM articles WHERE id=$postid");
-        $row = $result->fetch(PDO::FETCH_ASSOC);
-        $n = $row['likes'];
-        //delete from the likes before updation posts
-        $db->query("DELETE FROM likes WHERE postid=$postid AND userid=1");
-        $db->query("UPDATE articles SET likes=$n-1 WHERE id=$postid");
-        exit();
-    }
+//    $db = DB::getConnection();
+//
+//    if (isset($_POST['liked'])) {
+//        $postid = $_POST['postid'];
+//        $result = $db->query("SELECT * FROM articles WHERE id=$postid");
+//        $row = $result->fetch(PDO::FETCH_ASSOC);
+//        $n = $row['likes'];
+//
+//        $db->query("UPDATE articles SET likes=$n+1 WHERE id=$postid");
+//        $db->query("INSERT INTO likes(userid, postid) VALUE(1, $postid)");
+//        exit();
+//    }
+//    if (isset($_POST['unliked'])) {
+//        $postid = $_POST['postid'];
+//        $result = $db->query("SELECT * FROM articles WHERE id=$postid");
+//        $row = $result->fetch(PDO::FETCH_ASSOC);
+//        $n = $row['likes'];
+//        //delete from the likes before updation posts
+//        $db->query("DELETE FROM likes WHERE postid=$postid AND userid=1");
+//        $db->query("UPDATE articles SET likes=$n-1 WHERE id=$postid");
+//        exit();
+//    }
  ?>
 
 <div class="row">
@@ -36,17 +36,19 @@ foreach ($newsList as $newsItem):?>
             <div class="content">
                 <div class="post">
                     <?php
+                    Blog::ifUserHasAlreadyLikeThisPost($newsItem);
+                    $rowCount = Blog::ifUserHasAlreadyLikeThisPost($newsItem);
                     // determine if user has already like this post
-                    $result = $db->query("SELECT * FROM likes WHERE userid=1 AND postid=".$newsItem['id']."");
-                    $result->execute();
+//                    $result = $db->query("SELECT * FROM likes WHERE userid=1 AND postid=".$newsItem['id']."");
+//                    $result->execute();
                     // if (mysql_num_rows($result) == 1) { ?/>
-                    print_r($newsItem['likes']);
-                    if ($result->rowCount() == 1) { ?>
+                    print_r($newsItem['likes'].'<br>');
+                    if ($rowCount == 1) { ?>
                         <!-- user already likes post -->
-                        <span><a href="" class="unlike" id="<?php echo $newsItem['id']; ?>">unlike</a></span>
+                        <span><a href="" class="unlike btn btn-primary" role="button" id="<?php echo $newsItem['id']; ?>">Unlike</a></span>
                     <?php } else { ?>
                         <!-- user has not yet liked post -->
-                        <span><a href="" class="like" id="<?php echo $newsItem['id']; ?>">like</a></span>
+                        <span><a href="" class="like btn btn-primary" role="button" id="<?php echo $newsItem['id']; ?>">Like</a></span>
                     <?php } ?>
                 </div>
             </div>

@@ -25,13 +25,21 @@ class AuthController
 
         if (isset($_POST["login"])) {
             if (!empty($_POST['username']) && !empty($_POST['password'])) {
+
                 $username = $_POST['username'];
                 $password = $_POST['password'];
 
                 Auth::checkUserData($username, $password);
 
+            } else {
+            $message =  "Invalid username or password!";
             }
+        } else {
+            $message = "All fields are required!";
         }
+
+        if (!empty($message)) {echo "<p class=\"error\">" . "MESSAGE: ". $message . "</p>";}
+
         return true;
     }
 

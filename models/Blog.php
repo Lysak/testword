@@ -47,7 +47,39 @@ class Blog
 
     public static function getLikes()
     {
+        $db = DB::getConnection();
 
+        if (isset($_POST['liked'])) {
+            $postid = $_POST['postid'];
+            $result = $db->query("SELECT * FROM articles WHERE id=$postid");
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            $n = $row['likes'];
+
+            $db->query("UPDATE articles SET likes=$n+1 WHERE id=$postid");
+            $db->query("INSERT INTO likes(userid, postid) VALUE(1, $postid)");
+            exit();
+        }
+        if (isset($_POST['unliked'])) {
+            $postid = $_POST['postid'];
+            $result = $db->query("SELECT * FROM articles WHERE id=$postid");
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            $n = $row['likes'];
+            //delete from the likes before updation posts
+            $db->query("DELETE FROM likes WHERE postid=$postid AND userid=1");
+            $db->query("UPDATE articles SET likes=$n-1 WHERE id=$postid");
+            exit();
+        }
+
+
+    }
+
+    public static function ifUserHasAlreadyLikeThisPost($newsItem)
+    {
+        $db = DB::getConnection();
+        $result = $db->query("SELECT * FROM likes WHERE userid=1 AND postid=".$newsItem['id']."");
+        $result->execute();
+        $rowCount = $result->rowCount();
+        return $rowCount;
     }
 
 

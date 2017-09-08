@@ -189,3 +189,9 @@ body {
     /* padding: 10px; */
     text-align: center;
 }
+.like {
+    padding: 5px 21px;
+}
+.unlike {
+    padding: 5px 16px;
+}

@@ -1,7 +1,7 @@
 <?php
     return array(
-      'host' => 'localhost',
-        'dbname' => 'news',
-        'user' => 'root',
-        'password' => ''
+        'host'     => 'localhost',
+        'dbname'   => 'dbname',
+        'user'     => 'user',
+        'password' => 'password'
     );

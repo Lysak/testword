@@ -30,7 +30,7 @@ class Blog
 
         $newsList = array();
 
-        $result = $db->query("SELECT id, title, date, short_content, likes FROM articles ORDER BY date DESC LIMIT ".$start.", ".$limit);
+        $result = $db->query("SELECT * FROM articles ORDER BY id DESC LIMIT ".$start.", ".$limit);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $i = 0;
         while($row = $result->fetch()) {

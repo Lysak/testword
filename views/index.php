@@ -40,7 +40,7 @@
     foreach ($newsList as $newsItem):?>
       <div class="col-lg-6 six">
         <div class="thumbnail">
-          <h4><?php echo $newsItem['title'];?></h4>
+          <h4><?php echo mb_strimwidth($newsItem['title'], 0, 37, "...");?></h4>
           <div class="center"><img src="/template/img/news/<?php echo $newsItem['id'];?>.jpg"></div>
           <p><?php echo mb_strimwidth($newsItem['short_content'], 0, 40, "...");?></p>
           <p align="center"><strong>Дата публікації: <?php echo $newsItem['date'];?></strong></p>

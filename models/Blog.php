@@ -41,6 +41,7 @@ class Blog
             $newsList[$i]['short_content'] = $row['short_content'];
             $i++;
         }
+        
 
         return $newsList;
     }

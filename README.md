@@ -4,4 +4,4 @@ sudo chmod -R 777 /var/www/testword.loc/template/img/news
 
 rename news.sample -> news
 
-db dump in /testword/config/
+db dump in /testword/config/wp_news.sql

@@ -15,10 +15,12 @@ class Auth
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $dbusername = $row['username'];
             $dbpassword = $row['password'];
+            $dbid       = $row['id'];
         }
 
-        if ($username == $dbusername && $password == $dbpassword) {
+        if ($username == $dbusername && $password == $dbpassword && $id = $dbid) {
             $_SESSION['session_username'] = $username;
+            $_SESSION['session_userid'] = $id;
             header("Location: intropage");
         }
 

@@ -51,22 +51,24 @@ class Blog
         $db = DB::getConnection();
 
         if (isset($_POST['liked'])) {
+            $userid = $_SESSION['session_userid'];
             $postid = $_POST['postid'];
             $result = $db->query("SELECT * FROM articles WHERE id=$postid");
             $row = $result->fetch(PDO::FETCH_ASSOC);
             $n = $row['likes'];
 
             $db->query("UPDATE articles SET likes=$n+1 WHERE id=$postid");
-            $db->query("INSERT INTO likes(userid, postid) VALUE(1, $postid)");
+            $db->query("INSERT INTO likes(userid, postid) VALUE($userid, $postid)");
             exit();
         }
         if (isset($_POST['unliked'])) {
+            $userid = $_SESSION['session_userid'];
             $postid = $_POST['postid'];
             $result = $db->query("SELECT * FROM articles WHERE id=$postid");
             $row = $result->fetch(PDO::FETCH_ASSOC);
             $n = $row['likes'];
             //delete from the likes before updation posts
-            $db->query("DELETE FROM likes WHERE postid=$postid AND userid=1");
+            $db->query("DELETE FROM likes WHERE postid=$postid AND userid=$userid");
             $db->query("UPDATE articles SET likes=$n-1 WHERE id=$postid");
             exit();
         }
@@ -77,7 +79,9 @@ class Blog
     public static function ifUserHasAlreadyLikeThisPost($newsItem)
     {
         $db = DB::getConnection();
-        $result = $db->query("SELECT * FROM likes WHERE userid=1 AND postid=".$newsItem['id']."");
+        $userid = $_SESSION['session_userid'];
+        // echo $userid;
+        $result = $db->query("SELECT * FROM likes WHERE userid=".$userid." AND postid=".$newsItem['id']."");
         $result->execute();
         $rowCount = $result->rowCount();
         return $rowCount;

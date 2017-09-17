@@ -1,4 +1,4 @@
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Alt Text](https://media.giphy.com/media/xT9IgDxVwHh9tmq69a/giphy.gif)
 
 sudo chmod -R 777 /var/www/testword.loc/template/img/news
 

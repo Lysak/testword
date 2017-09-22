@@ -50,7 +50,7 @@ class Blog
     {
         $db = DB::getConnection();
 
-        if (isset($_POST['liked'])) {
+        if (isset($_POST['liked']) && isset($_SESSION['session_userid'])) {
             $userid = $_SESSION['session_userid'];
             $postid = $_POST['postid'];
             $result = $db->query("SELECT * FROM articles WHERE id=$postid");
@@ -61,7 +61,7 @@ class Blog
             $db->query("INSERT INTO likes(userid, postid) VALUE($userid, $postid)");
             exit();
         }
-        if (isset($_POST['unliked'])) {
+        if (isset($_POST['unliked']) && isset($_SESSION['session_userid'])) {
             $userid = $_SESSION['session_userid'];
             $postid = $_POST['postid'];
             $result = $db->query("SELECT * FROM articles WHERE id=$postid");
@@ -79,12 +79,14 @@ class Blog
     public static function ifUserHasAlreadyLikeThisPost($newsItem)
     {
         $db = DB::getConnection();
-        $userid = $_SESSION['session_userid'];
-        // echo $userid;
-        $result = $db->query("SELECT * FROM likes WHERE userid=".$userid." AND postid=".$newsItem['id']."");
-        $result->execute();
-        $rowCount = $result->rowCount();
-        return $rowCount;
+        if(isset($_SESSION['session_userid'])) {
+            $userid = $_SESSION['session_userid'];
+            // echo $userid;
+            $result = $db->query("SELECT * FROM likes WHERE userid=".$userid." AND postid=".$newsItem['id']."");
+            $result->execute();
+            $rowCount = $result->rowCount();
+            return $rowCount;
+        };
     }
 
 
